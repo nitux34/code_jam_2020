@@ -7,7 +7,7 @@ int findDancingNeighbour(int irow, int icol, int nrows, int ncols, int compassRo
     int tmpcol;
     int tmpfactor=1;
     
-    for(int ii=0; ii<nrows*ncols;ii++){
+    for(int ii=0; ii<nrows+ncols;ii++){
         tmprow = tmpfactor*compassRow + irow;
         tmpcol = tmpfactor*compassCol + icol;
         if (tmprow==nrows||tmpcol==ncols||tmpcol<0||tmprow<0){
@@ -46,7 +46,7 @@ int nrows;
 
 
 int tt;
-int interest,tmpinterest;
+long long interest,tmpinterest;
 int compass[4] = {0,0,-1,1};
 float tmpsum;
 int tmprow, tmpcol,N,tmpfactor;
@@ -54,8 +54,8 @@ bool isEliminated = 0;
 
 cin >> tt;
 for (int it = 0; it < tt; it++){
-    cout << "Case #" << it+1 << ": ";
-    cin >> ncols >> nrows;
+    cout << "Case #" << it+1 << ": " << endl;
+    cin >> nrows >> ncols;
     int danceSkills[nrows][ncols];
     for (int irow=0; irow<nrows; irow++){ 
             for (int icol=0; icol<ncols; icol++){
@@ -72,8 +72,7 @@ for (int it = 0; it < tt; it++){
 
     for (int iround = 0; iround < ncols*nrows; iround++){
         isEliminated = 0;  
-        isDancing = create_dance(nrows, ncols, isDancing,2);  
-        cout << iround << endl;   
+        isDancing = create_dance(nrows, ncols, isDancing,2);   
         for (int irow=0; irow<nrows; irow++){ 
             for (int icol=0; icol<ncols; icol++){
                 if (isDancing[irow][icol]>0){
@@ -87,14 +86,10 @@ for (int it = 0; it < tt; it++){
                         tmprow = tmpfactor*compass[ii] + irow;
                         tmpcol = tmpfactor*compass[3-ii] + icol;
 
-                        if (tmprow>=0 && tmpcol>=0 && tmprow<nrows && tmpcol<ncols && isDancing[tmprow][tmpcol] >0){
-                            cout << "irow: " << irow << " icol: " << icol << " sum "<< tmpsum<<  " tmprow: " << tmprow << " tmpcol: " << tmpcol  << " danceing: " << isDancing[tmprow][tmpcol] <<" \n";
+                        if (tmprow>=0 && tmpcol>=0 && tmprow<nrows && tmpcol<ncols && isDancing[tmprow][tmpcol] >0){                            
                             tmpsum = tmpsum + danceSkills[tmprow][tmpcol];
                             N++;                            
-                        }   
-                        
-                        
-                        cout << "irow: " << irow << " icol: " << icol << endl;//"    "<<danceSkills[irow][icol]<<endl;
+                        }                                                   
                     }
 
                     if (tmpsum/N>danceSkills[irow][icol]){
@@ -104,34 +99,17 @@ for (int it = 0; it < tt; it++){
                 }
             }
         }
-        //TMP
-        cout << "DANCING\n";
-        for (int irow=0; irow<nrows; irow++){ //CREATE ARRAYS
-            for (int icol=0; icol<ncols; icol++){
-            // CIN
-                cout << isDancing[irow][icol] << " ";
-            }
-            cout << "\n";
-        }//ENDTMP
-        cout << "----------\n";
+
+
         interest = tmpinterest;
         if(!isEliminated){
-            cout << "TERMINATE \n";
             break;
         }
         
 
     }
 
-cout << interest << " INTEREST\n";
-
-
-
-
-
-
-
-
-
+cout << interest << endl;
 }
+return 0;
 }
